@@ -79,7 +79,7 @@ const BlogsListing = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mt-2">
+              <div className="flex justify-between items-center mt-4">
                 <img
                   src={`data:image/jpeg;base64,${blog?.image}`}
                   alt="abc"
