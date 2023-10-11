@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { deleteBlog, editBlog, getBlogs } from "../../api";
 import { IBlogs } from "../../interface/Blogs";
 import { NavLink } from "react-router-dom";
@@ -54,39 +54,40 @@ const BlogsListing = () => {
 
   return (
     <div className="mt-4">
-      <div>
+      <p className="text-center text-3xl font-bold">Your Blogs</p>
+      <div className="mt-4">
         <NavLink to="/create-blog">
           <button className="border px-4 py-2 rounded-md hover:bg-black hover:text-white">
             Create a Blog
           </button>
         </NavLink>
-        {allBlogs.map((blog) => {
-          return (
-            <div key={blog?._id} className="border p-6 mt-4 rounded-md">
-              <div className="flex justify-between">
-                <p className="font-bold">{blog?.title}</p>
-                <div className="flex gap-x-10">
-                  <AiFillDelete
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setOpenDeleteModal(true);
-                      setStoreDeleteId(blog?._id);
-                    }}
-                  />
-                  <NavLink to={`/create-blog?${blog ? `_id=${blog._id}` : ""}`}>
-                    <AiFillEdit className="cursor-pointer" />
+        <div className="mt-8">
+          {allBlogs.map((blog) => {
+            return (
+              <div
+                key={blog?._id}
+                className="border p-6 mt-4 rounded-md cursor-pointer"
+              >
+                <div className="flex justify-between">
+                  <p className="font-bold">{blog?.title}</p>
+                  <NavLink to={`/blog?${blog ? `_id=${blog._id}` : ""}`}>
+                    <button className="flex items-center gap-x-2">
+                      <p className="text-sm font-semibold">Read More</p>
+                      <AiOutlineArrowRight />
+                    </button>
                   </NavLink>
                 </div>
-              </div>
 
-              <div className="flex justify-between items-center mt-4">
-                <img
-                  src={`data:image/jpeg;base64,${blog?.image}`}
-                  alt="abc"
-                  className="w-[20%] rounded-lg"
-                />
-                <p className="py-2 w-[65%] rounded-md">{blog?.blog}</p>
-                <button
+                <div className="flex gap-x-10 mt-4">
+                  <img
+                    src={`data:image/jpeg;base64,${blog?.image}`}
+                    alt="abc"
+                    className="w-[20%] rounded-lg"
+                  />
+                  <p className="py-2 w-[80%] rounded-md leading-8">
+                    {blog?.blog}
+                  </p>
+                  {/* <button
                   className={`border w-[9%] px-2 py-1 text-xs rounded-md ${
                     Boolean(blog?.markAsRead)
                       ? "bg-green-100 border-green-500"
@@ -97,11 +98,25 @@ const BlogsListing = () => {
                   {Boolean(blog?.markAsRead)
                     ? "Mark As Un-Read"
                     : "Mark As Read"}
-                </button>
+                </button> */}
+                </div>
+
+                {/* <div className="flex gap-x-10">
+                <AiFillDelete
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setOpenDeleteModal(true);
+                    setStoreDeleteId(blog?._id);
+                  }}
+                />
+                <NavLink to={`/create-blog?${blog ? `_id=${blog._id}` : ""}`}>
+                  <AiFillEdit className="cursor-pointer" />
+                </NavLink>
+              </div> */}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       <ActionModal

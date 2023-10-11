@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createBlog, editBlog, getBlogsById } from "../../api";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IBlogs } from "../../interface/Blogs";
 
 const CreateBlog = () => {
   const [blogTitle, setBlogTitle] = useState<string>("");
