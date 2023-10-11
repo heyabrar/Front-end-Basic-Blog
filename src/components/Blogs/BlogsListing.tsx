@@ -71,7 +71,9 @@ const BlogsListing = () => {
                     className="w-[20%] rounded-lg"
                   />
                   <div className="w-[70%]">
-                    <p className="py-2 rounded-md leading-8">{blog?.blog}</p>
+                    <NavLink to={`/blog?${blog ? `_id=${blog._id}` : ""}`}>
+                      <p className="py-2 rounded-md leading-8 line-clamp-2">{blog?.blog}</p>
+                    </NavLink>
                     <p className="text-xs text-gray-600">
                       {`${
                         blog?.createdAt ? `Created At : ${blog?.createdAt}` : ""
@@ -92,7 +94,9 @@ const BlogsListing = () => {
           })}
         </div>
 
-        <p className="text-center">{!allBlogs?.length && "Starting Creating To See The Blog"}</p>
+        <p className="text-center">
+          {!allBlogs?.length && "Starting Creating To See The Blog"}
+        </p>
       </div>
 
       <ActionModal
