@@ -71,23 +71,25 @@ const CreateBlog = () => {
 
   return (
     <div className="mt-5">
-      <input
-        placeholder="Title Of The Blog"
-        value={blogTitle}
-        ref={inputRef}
-        onChange={(e) => setBlogTitle(e.target.value)}
-        className="w-full p-5 focus:outline-none border rounded-md"
-      />
-      <input
-        type="file"
-        accept=".png, .jpg, .jpeg, .webp"
-        onChange={(e) => {
-          if (e.target.files) {
-            const file = e.target.files[0];
-            setSelectedImage(file);
-          }
-        }}
-      />
+      <div className="flex gap-x-5 items-center">
+        <input
+          placeholder="Title Of The Blog"
+          value={blogTitle}
+          ref={inputRef}
+          onChange={(e) => setBlogTitle(e.target.value)}
+          className="w-full p-5 focus:outline-none border rounded-md"
+        />
+        <input
+          type="file"
+          accept=".png, .jpg, .jpeg, .webp"
+          onChange={(e) => {
+            if (e.target.files) {
+              const file = e.target.files[0];
+              setSelectedImage(file);
+            }
+          }}
+        />
+      </div>
       <textarea
         placeholder="Start Writing....."
         value={blogText}
