@@ -1,8 +1,6 @@
 import SingleBlog from "../components/Blogs/SingleBlog";
 
-type Props = {};
-
-const SingleBlogPage = (props: Props) => {
+const SingleBlogPage = () => {
   return (
     <div>
       <SingleBlog />

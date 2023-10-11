@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiFillDelete, AiOutlineArrowRight } from "react-icons/ai";
 import { deleteBlog, editBlog, getBlogs } from "../../api";
 import { IBlogs } from "../../interface/Blogs";
 import { NavLink } from "react-router-dom";
 import ActionModal from "../Common/ActionModal";
 
 const BlogsListing = () => {
-  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [storeDeleteId, setStoreDeleteId] = useState<string>("");
   const [allBlogs, setAllBlogs] = useState<IBlogs[]>([]);
-
+  const [storeDeleteId, setStoreDeleteId] = useState<string>("");
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const handleGetBlogs = async () => {
     try {
       setIsLoading(true);
@@ -28,19 +27,6 @@ const BlogsListing = () => {
       const response = await deleteBlog({ id: storeDeleteId });
       if (response?.data) {
         setOpenDeleteModal(false);
-        handleGetBlogs();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleMarkAsRead = async (id: string, markAsRead: boolean) => {
-    try {
-      const formData = new FormData();
-      formData.append("markAsRead", (!markAsRead).toString());
-      const response = await editBlog({ id, payload: formData });
-      if (response?.data?.message) {
         handleGetBlogs();
       }
     } catch (error) {
@@ -84,35 +70,23 @@ const BlogsListing = () => {
                     alt="abc"
                     className="w-[20%] rounded-lg"
                   />
-                  <p className="py-2 w-[80%] rounded-md leading-8">
-                    {blog?.blog}
-                  </p>
-                  {/* <button
-                  className={`border w-[9%] px-2 py-1 text-xs rounded-md ${
-                    Boolean(blog?.markAsRead)
-                      ? "bg-green-100 border-green-500"
-                      : "bg-transparent"
-                  }`}
-                  onClick={() => handleMarkAsRead(blog._id, blog?.markAsRead)}
-                >
-                  {Boolean(blog?.markAsRead)
-                    ? "Mark As Un-Read"
-                    : "Mark As Read"}
-                </button> */}
-                </div>
+                  <div className="w-[70%]">
+                    <p className="py-2 rounded-md leading-8">{blog?.blog}</p>
+                    <p className="text-xs text-gray-600">
+                      {`${
+                        blog?.createdAt ? `Created At : ${blog?.createdAt}` : ""
+                      }`}
+                    </p>
+                  </div>
 
-                {/* <div className="flex gap-x-10">
-                <AiFillDelete
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setOpenDeleteModal(true);
-                    setStoreDeleteId(blog?._id);
-                  }}
-                />
-                <NavLink to={`/create-blog?${blog ? `_id=${blog._id}` : ""}`}>
-                  <AiFillEdit className="cursor-pointer" />
-                </NavLink>
-              </div> */}
+                  <AiFillDelete
+                    className="cursor-pointer mt-5"
+                    onClick={() => {
+                      setOpenDeleteModal(true);
+                      setStoreDeleteId(blog?._id as string);
+                    }}
+                  />
+                </div>
               </div>
             );
           })}
